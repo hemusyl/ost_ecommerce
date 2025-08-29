@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "630177566427",
+    "project_id": "ostadfirebase-c93c2",
+    "storage_bucket": "ostadfirebase-c93c2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630177566427:android:dc1412051c409995cd46fe",
+        "android_client_info": {
+          "package_name": "com.wpdevusa.ost_ecommerce"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaK2FhTT3LmC2Ljt2UIsYukGadSrNs0pc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630177566427:android:c0115706da786a97cd46fe",
+        "android_client_info": {
+          "package_name": "wpdevusa.com.ostad_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaK2FhTT3LmC2Ljt2UIsYukGadSrNs0pc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
