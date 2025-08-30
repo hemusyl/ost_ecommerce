@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ost_ecommerce/app/extensions/localization_extension.dart';
 import 'package:ost_ecommerce/l10n/app_localizations.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text(AppLocalizations.of(context)!.hello),
+        child: Text(context.localization.hello),
       ),
     );
   }
