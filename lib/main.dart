@@ -1,9 +1,9 @@
 import 'dart:ui';
 
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:ost_ecommerce/features/auth/presentation/screens/utils/app_version_service.dart';
 import 'package:ost_ecommerce/firebase_options.dart';
 import 'app/app.dart';
 
@@ -25,5 +25,6 @@ Future<void> main() async {
     return true;
   };
 
+  AppVersionService.getCurrentAppVersion();
   runApp(const CraftyBay());
 }

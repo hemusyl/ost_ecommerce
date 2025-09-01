@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:ost_ecommerce/app/extensions/localization_extension.dart';
-import 'package:ost_ecommerce/l10n/app_localizations.dart';
+import 'package:ost_ecommerce/features/auth/presentation/screens/utils/app_version_service.dart';
+
+
+import '../../../../app/asset_paths.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,7 +18,23 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text(context.localization.hello),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Spacer(),
+              SvgPicture.asset(AssetPaths.logoSvg, width: 120),
+              Spacer(),
+              CircularProgressIndicator(),
+              const SizedBox(height: 12),
+              Text(
+                '${context.localization.version} '
+                    '${AppVersionService.currentAppVersion}',
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
