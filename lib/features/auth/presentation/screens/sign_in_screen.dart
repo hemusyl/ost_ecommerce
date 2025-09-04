@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ost_ecommerce/app/extensions/localization_extension.dart';
 import 'package:ost_ecommerce/features/auth/presentation/screens/sign_up_screen.dart';
 
+import '../../../../app/forgot_password_email_screen.dart';
 import '../widgets/app_logo.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -16,6 +17,7 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _emailTEController = TextEditingController();
   final TextEditingController _passwordTEController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,14 @@ class _SignInScreenState extends State<SignInScreen> {
                   onPressed: _onTapLoginButton,
                   child: Text('Login'),
                 ),
+
                 const SizedBox(height: 16),
+                TextButton(
+                  onPressed:  _onTapForgotPasswordButton,
+                  child: Text('Forgot Password ?'),
+                ),
+
+                const SizedBox(height: 1),
                 TextButton(
                   onPressed: _onTapSignUpButton,
                   child: Text('Sign up'),
@@ -72,6 +81,11 @@ class _SignInScreenState extends State<SignInScreen> {
 
   void _onTapSignUpButton() {
     Navigator.pushNamed(context, SignUpScreen.name);
+  }
+
+  void _onTapForgotPasswordButton(){
+    Navigator.pushNamed(context, ForgotPasswordEmailScreen.name);
+
   }
 
   @override

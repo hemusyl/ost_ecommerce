@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ost_ecommerce/app/extensions/localization_extension.dart';
-import 'package:ost_ecommerce/features/auth/presentation/screens/sign_in_screen.dart';
 import 'package:ost_ecommerce/features/auth/presentation/screens/utils/app_version_service.dart';
+import 'package:ost_ecommerce/features/shared/presentation/screens/bottom_nav_holder_screen.dart';
 
 
 import '../../../../app/asset_paths.dart';
@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _moveToNextScreen() async {
     await Future.delayed(Duration(seconds: 3));
-    Navigator.pushReplacementNamed(context, SignInScreen.name);
+    Navigator.pushReplacementNamed(context, BottomNavHolderScreen.name);
   }
 
   @override
