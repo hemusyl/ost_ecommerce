@@ -9,9 +9,20 @@ class AppTheme {
       filledButtonTheme: _filledButtonThemeData,
       inputDecorationTheme: _inputDecorationTheme,
       textTheme: TextTheme(
-          titleLarge: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold
+        titleLarge: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.bold
+        ),
+        titleMedium: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold
+        ),
+      ),
+      appBarTheme: AppBarTheme(
+          titleTextStyle: TextStyle(
+              fontSize: 18,
+              color: Colors.black,
+              fontWeight: FontWeight.w500
           )
       )
   );

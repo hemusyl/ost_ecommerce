@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
+import '../../../home/presentation/screens/home_screen/category_list_screen.dart';
 import '../../../home/presentation/screens/home_screen/home_screen.dart';
 import '../controllers/main_nav_controller.dart';
 
@@ -15,8 +16,8 @@ class BottomNavHolderScreen extends StatefulWidget {
 
 class _BottomNavHolderScreenState extends State<BottomNavHolderScreen> {
   final List<Widget> _screens = [
-   HomeScreen(),
-   HomeScreen(),
+    HomeScreen(),
+    CategoryListScreen(),
     HomeScreen(),
     HomeScreen(),
   ];

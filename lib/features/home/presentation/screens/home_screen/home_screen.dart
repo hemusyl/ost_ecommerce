@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../../app/asset_paths.dart';
+import '../../../../shared/presentation/controllers/main_nav_controller.dart';
 import '../../../../shared/presentation/widgets/app_bar_icon_button.dart';
+import '../../../../shared/presentation/widgets/home_banner_slider.dart';
+import '../../../../shared/presentation/widgets/product_category_item.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -27,12 +32,57 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          children: [const SizedBox(height: 16), _buildSearchBar()],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              const SizedBox(height: 16),
+              _buildSearchBar(),
+              const SizedBox(height: 16),
+              HomeBannerSlider(),
+              const SizedBox(height: 16),
+              _buildSectionHeader(title: 'Categories', onTapSeeAll: () {
+                Get.find<MainNavController>().moveToCategory();
+              }),
+              _buildCategoryList(),
+              _buildSectionHeader(title: 'New', onTapSeeAll: () {}),
+              _buildSectionHeader(title: 'Popular', onTapSeeAll: () {}),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Widget _buildCategoryList() {
+    return SizedBox(
+      height: 100,
+      child: ListView.separated(
+        itemCount: 10,
+        primary: false,
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return ProductCategoryItem();
+        },
+        separatorBuilder: (context, index) {
+          return SizedBox(width: 10);
+        },
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader({
+    required String title,
+    required VoidCallback onTapSeeAll,
+  }) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(title, style: Theme.of(context).textTheme.titleMedium),
+        TextButton(onPressed: onTapSeeAll, child: Text('See all')),
+      ],
     );
   }
 
@@ -51,5 +101,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-
