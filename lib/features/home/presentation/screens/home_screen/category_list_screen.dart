@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../shared/presentation/controllers/main_nav_controller.dart';
 import '../../../../shared/presentation/widgets/product_category_item.dart';
@@ -19,6 +18,7 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
       canPop: false,
       onPopInvokedWithResult: (_, __) {
         _backToHome();
+
       } ,
       child: Scaffold(
         appBar: AppBar(
@@ -45,5 +45,6 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
 
   void _backToHome() {
     Get.find<MainNavController>().backToHome();
+
   }
 }

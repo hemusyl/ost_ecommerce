@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
 import '../../../home/presentation/screens/home_screen/category_list_screen.dart';
@@ -15,12 +16,16 @@ class BottomNavHolderScreen extends StatefulWidget {
 }
 
 class _BottomNavHolderScreenState extends State<BottomNavHolderScreen> {
+
+
   final List<Widget> _screens = [
     HomeScreen(),
     CategoryListScreen(),
     HomeScreen(),
     HomeScreen(),
+
   ];
+
 
   @override
   Widget build(BuildContext context) {

@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../../app/asset_paths.dart';
 import '../../../../shared/presentation/controllers/main_nav_controller.dart';
 import '../../../../shared/presentation/widgets/app_bar_icon_button.dart';
 import '../../../../shared/presentation/widgets/home_banner_slider.dart';
+import '../../../../shared/presentation/widgets/product_card.dart';
 import '../../../../shared/presentation/widgets/product_category_item.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
+
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -46,8 +49,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 Get.find<MainNavController>().moveToCategory();
               }),
               _buildCategoryList(),
-              _buildSectionHeader(title: 'New', onTapSeeAll: () {}),
-              _buildSectionHeader(title: 'Popular', onTapSeeAll: () {}),
+
+              _buildSectionHeader(title: 'New', onTapSeeAll: () {
+                Get.find<MainNavController>().moveToCategory();
+              }),
+              _buildNewProductList(),
+
+              _buildSectionHeader(title: 'Special', onTapSeeAll: () {
+                Get.find<MainNavController>().moveToCategory();
+              }),
+              _buildPopularProductList(),
+
+
+              _buildSectionHeader(title: 'Popular', onTapSeeAll: () {
+                Get.find<MainNavController>().moveToCategory();
+              }),
+              _buildSpecialProductList(),
             ],
           ),
         ),
@@ -55,11 +72,40 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+
+  Widget _buildNewProductList() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [1, 2, 3, 4].map((e) => ProductCard()).toList(),
+      ),
+    );
+  }
+
+  Widget _buildPopularProductList() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [1, 2, 3, 4, 56].map((e) => ProductCard()).toList(),
+      ),
+    );
+  }
+
+  Widget _buildSpecialProductList() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [1, 2, 3, 4, 56].map((e) => ProductCard()).toList(),
+      ),
+    );
+  }
+
+
   Widget _buildCategoryList() {
     return SizedBox(
       height: 100,
       child: ListView.separated(
-        itemCount: 10,
+        itemCount: 6,
         primary: false,
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
@@ -101,3 +147,4 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+

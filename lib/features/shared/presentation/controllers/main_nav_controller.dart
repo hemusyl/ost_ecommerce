@@ -14,9 +14,11 @@ class MainNavController extends GetxController {
   }
 
   void moveToCategory(){
-    changeIndex(1);
+   changeIndex(1);
+
   }
   void backToHome(){
     changeIndex(0);
+
   }
 }
