@@ -29,7 +29,7 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
           padding: const EdgeInsets.all(20.0),
           child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
+              crossAxisCount: 3,
               crossAxisSpacing: 8,
               mainAxisSpacing: 8,
             ),

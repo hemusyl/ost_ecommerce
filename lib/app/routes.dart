@@ -6,6 +6,7 @@ import '../features/auth/presentation/screens/sign_in_screen.dart';
 import '../features/auth/presentation/screens/sign_up_screen.dart';
 import '../features/auth/presentation/screens/splash_screen.dart';
 import '../features/auth/presentation/screens/verity_otp.dart';
+import '../features/products/product_details_screen.dart';
 import '../features/products/wish_list.dart';
 
 MaterialPageRoute onGenerateRoute(RouteSettings settings){
@@ -27,6 +28,8 @@ MaterialPageRoute onGenerateRoute(RouteSettings settings){
     screen = ProductListScreen(categoryName: category,);
   }else if (settings.name == wishListScreen.name) {
     screen = wishListScreen();
+  }else if (settings.name == ProductDetailsScreen.name) {
+    screen = ProductDetailsScreen();
   }
 
 
