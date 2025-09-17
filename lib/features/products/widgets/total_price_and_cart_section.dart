@@ -28,7 +28,7 @@ class TotalPriceAndCartSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Price', style: TextStyle(color: Colors.black),),
-              Text('${takaSign}120', style: textTheme.titleMedium?.copyWith(color: AppColors.themeColor),)
+              Text('${takaSign}135', style: textTheme.titleMedium?.copyWith(color: AppColors.themeColor),)
             ],
           ),
           SizedBox(
