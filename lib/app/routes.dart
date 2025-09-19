@@ -26,8 +26,6 @@ MaterialPageRoute onGenerateRoute(RouteSettings settings){
   }else if (settings.name == ProductListScreen.name) {
     final String category = settings.arguments as String;
     screen = ProductListScreen(categoryName: category,);
-  }else if (settings.name == wishListScreen.name) {
-    screen = wishListScreen();
   }else if (settings.name == ProductDetailsScreen.name) {
     screen = ProductDetailsScreen();
   }
