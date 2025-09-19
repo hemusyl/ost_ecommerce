@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:ost_ecommerce/features/carts/cart_screen.dart';
 
 import '../../../home/presentation/screens/home_screen/category_list_screen.dart';
 import '../../../home/presentation/screens/home_screen/home_screen.dart';
@@ -21,7 +22,7 @@ class _BottomNavHolderScreenState extends State<BottomNavHolderScreen> {
   final List<Widget> _screens = [
     HomeScreen(),
     CategoryListScreen(),
-    HomeScreen(),
+    CartScreen(),
     wishListScreen(),
 
   ];
