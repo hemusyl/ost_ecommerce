@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:ost_ecommerce/features/auth/presentation/controllers/sign_up_controller.dart';
 import 'package:ost_ecommerce/features/auth/presentation/screens/verity_otp.dart';
 
+import '../../../shared/presentation/widgets/centered_circular_progress.dart';
 import '../widgets/app_logo.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -80,9 +83,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   decoration: InputDecoration(hintText: 'Password'),
                 ),
                 const SizedBox(height: 16),
-                FilledButton(
-                  onPressed: _onTapSignUpButton,
-                  child: Text('Sign Up'),
+                GetBuilder<SignUpController>(
+                  builder: (controller) {
+                    return Visibility(
+                      visible: controller.signUpInProgress == false,
+                      replacement: CenteredCircularProgress(),
+                      child: FilledButton(
+                        onPressed: _onTapSignUpButton,
+                        child: Text('Sign Up'),
+                      ),
+                    );
+                  }
                 ),
                 const SizedBox(height: 16),
                 TextButton(
@@ -98,6 +109,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void _onTapSignUpButton() {
+    // To Do Validate form
+
    Navigator.pushNamed(context, VerifyOtpScreen.name);
   }
 

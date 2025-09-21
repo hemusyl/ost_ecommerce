@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ost_ecommerce/app/extensions/localization_extension.dart';
 import 'package:ost_ecommerce/features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:ost_ecommerce/features/auth/presentation/screens/utils/app_version_service.dart';
-import 'package:ost_ecommerce/features/shared/presentation/screens/bottom_nav_holder_screen.dart';
 
 
 import '../../../../app/asset_paths.dart';
