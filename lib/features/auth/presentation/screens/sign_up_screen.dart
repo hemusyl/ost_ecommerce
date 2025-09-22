@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:ost_ecommerce/features/auth/presentation/controllers/sign_up_controller.dart';
 import 'package:ost_ecommerce/features/auth/presentation/screens/verity_otp.dart';
 
 import '../../../shared/presentation/widgets/centered_circular_progress.dart';
+import '../../../shared/presentation/widgets/snack_bar_message.dart';
+import '../../data/models/sign_up_request_model.dart';
 import '../widgets/app_logo.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -22,6 +26,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _mobileTEController = TextEditingController();
   final TextEditingController _addressTEController = TextEditingController();
   final TextEditingController _passwordTEController = TextEditingController();
+
+  final SignUpController _signUpController = Get.find<SignUpController>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -109,14 +116,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void _onTapSignUpButton() {
-    // To Do Validate form
-
-   Navigator.pushNamed(context, VerifyOtpScreen.name);
+    // TODO: Validate form
+    _signUp();
   }
 
+  Future<void> _signUp() async {
+    SignUpRequestModel model = SignUpRequestModel(
+      firstName: _firstNameTEController.text.trim(),
+      lastName: _lastNameTEController.text.trim(),
+      email: _emailTEController.text.trim(),
+      password: _passwordTEController.text,
+      city: _addressTEController.text.trim(),
+      phone: _mobileTEController.text.trim(),
+    );
+    final bool isSuccess = await _signUpController.signUp(model);
+    if (isSuccess) {
+      showSnackBarMessage(context, 'Sign up successful! Please login');
+      Navigator.pushNamed(context, VerifyOtpScreen.name);
+    } else {
+      showSnackBarMessage(context, _signUpController.errorMessage!);
+    }
+  }
   void _onTapBackToLoginButton() {
     Navigator.pop(context);
   }
+
 
   @override
   void dispose() {

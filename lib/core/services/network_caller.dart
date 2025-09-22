@@ -78,8 +78,9 @@ class NetworkCaller {
       );
       _logResponse(url, response);
 
-      if (response.statusCode == 200) {
-        final decodedJson = jsonDecode(response.body);
+      final decodedJson = jsonDecode(response.body);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
         return NetworkResponse(
           isSuccess: true,
           statusCode: response.statusCode,
@@ -93,6 +94,7 @@ class NetworkCaller {
           isSuccess: false,
           statusCode: response.statusCode,
           errorMessage: _unAuthorizeMessage,
+          body: decodedJson,
         );
       } else {
         final decodedJson = jsonDecode(response.body);
@@ -100,6 +102,7 @@ class NetworkCaller {
           isSuccess: false,
           statusCode: response.statusCode,
           errorMessage: decodedJson['data'] ?? _defaultErrorMessage,
+          body: decodedJson,
         );
       }
     } catch (e) {
@@ -240,8 +243,9 @@ class NetworkCaller {
       );
       _logResponse(url, response);
 
+      final decodedJson = jsonDecode(response.body);
+
       if (response.statusCode == 200) {
-        final decodedJson = jsonDecode(response.body);
         return NetworkResponse(
           isSuccess: true,
           statusCode: response.statusCode,
@@ -252,16 +256,18 @@ class NetworkCaller {
           onUnAuthorize();
         }
         return NetworkResponse(
-          isSuccess: false,
-          statusCode: response.statusCode,
-          errorMessage: _unAuthorizeMessage,
+            isSuccess: false,
+            statusCode: response.statusCode,
+            errorMessage: _unAuthorizeMessage,
+            body: decodedJson
         );
       } else {
         final decodedJson = jsonDecode(response.body);
         return NetworkResponse(
-          isSuccess: false,
-          statusCode: response.statusCode,
-          errorMessage: decodedJson['data'] ?? _defaultErrorMessage,
+            isSuccess: false,
+            statusCode: response.statusCode,
+            errorMessage: decodedJson['data'] ?? _defaultErrorMessage,
+            body: decodedJson
         );
       }
     } catch (e) {
