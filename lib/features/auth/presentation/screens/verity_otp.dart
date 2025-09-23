@@ -6,6 +6,7 @@ import 'package:ost_ecommerce/features/auth/presentation/screens/sign_in_screen.
 import 'package:ost_ecommerce/features/shared/presentation/widgets/centered_circular_progress.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+import '../../../../app/controllers/auth_controller.dart';
 import '../../../shared/presentation/screens/bottom_nav_holder_screen.dart';
 import '../../../shared/presentation/widgets/snack_bar_message.dart';
 import '../../data/models/verify_otp_request_model.dart';

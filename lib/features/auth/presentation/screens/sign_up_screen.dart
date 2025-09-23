@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:ost_ecommerce/features/auth/presentation/controllers/sign_up_controller.dart';
+import 'package:ost_ecommerce/features/auth/presentation/screens/sign_in_screen.dart';
 import 'package:ost_ecommerce/features/auth/presentation/screens/verity_otp.dart';
 
 import '../../../shared/presentation/widgets/centered_circular_progress.dart';
@@ -29,7 +30,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   final SignUpController _signUpController = Get.find<SignUpController>();
 
-
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -44,10 +44,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(height: 24),
                 AppLogo(width: 80),
                 const SizedBox(height: 24),
-                Text(
-                  'Create new account',
-                  style: textTheme.titleLarge,
-                ),
+                Text('Create new account', style: textTheme.titleLarge),
                 Text(
                   'Please enter your details for new account',
                   style: textTheme.bodyLarge?.copyWith(color: Colors.grey),
@@ -100,7 +97,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         child: Text('Sign Up'),
                       ),
                     );
-                  }
+                  },
                 ),
                 const SizedBox(height: 16),
                 TextButton(
@@ -132,15 +129,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final bool isSuccess = await _signUpController.signUp(model);
     if (isSuccess) {
       showSnackBarMessage(context, 'Sign up successful! Please login');
-      Navigator.pushNamed(context, VerifyOtpScreen.name);
+      Navigator.pushNamed(context, VerifyOtpScreen.name,
+          arguments: _emailTEController.text.trim());
     } else {
       showSnackBarMessage(context, _signUpController.errorMessage!);
     }
   }
-  void _onTapBackToLoginButton() {
-    Navigator.pop(context);
-  }
 
+  void _onTapBackToLoginButton() {
+    Navigator.pushNamed(context, SignInScreen.name);
+  }
 
   @override
   void dispose() {

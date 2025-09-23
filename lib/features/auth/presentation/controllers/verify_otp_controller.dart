@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../../../app/utils/urls.dart';
 import '../../../../core/models/network_response.dart';
 import '../../../../core/services/network_caller.dart';
+import '../../../shared/presentation/models/user_model.dart';
 import '../../data/models/verify_otp_request_model.dart';
 
 class VerifyOtpController extends GetxController {
