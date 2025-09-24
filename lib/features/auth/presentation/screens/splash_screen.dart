@@ -3,7 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:ost_ecommerce/app/extensions/localization_extension.dart';
 import 'package:ost_ecommerce/features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:ost_ecommerce/features/auth/presentation/screens/utils/app_version_service.dart';
-
+import 'package:get/get.dart';
+import 'package:ost_ecommerce/app/controllers/auth_controller.dart';
 
 import '../../../../app/asset_paths.dart';
 
@@ -25,7 +26,11 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _moveToNextScreen() async {
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: 2));
+    bool isUserLoggedIn = await Get.find<AuthController>().isUserAlreadyLoggedIn();
+    if (isUserLoggedIn) {
+      await Get.find<AuthController>().loadUserData();
+    }
     Navigator.pushReplacementNamed(context, SignUpScreen.name);
   }
 
