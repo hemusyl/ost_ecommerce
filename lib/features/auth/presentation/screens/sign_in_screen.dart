@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:ost_ecommerce/app/controllers/login_controller.dart';
 import 'package:ost_ecommerce/app/extensions/localization_extension.dart';
+import 'package:ost_ecommerce/features/auth/data/models/login_request_model.dart';
 import 'package:ost_ecommerce/features/auth/presentation/screens/sign_up_screen.dart';
+import 'package:ost_ecommerce/features/shared/presentation/widgets/centered_circular_progress.dart';
 
+import '../../../../app/controllers/auth_controller.dart';
 import '../../../../app/forgot_password_email_screen.dart';
+import '../../../shared/presentation/screens/bottom_nav_holder_screen.dart';
+import '../../../shared/presentation/widgets/snack_bar_message.dart';
 import '../widgets/app_logo.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -18,6 +26,7 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _emailTEController = TextEditingController();
   final TextEditingController _passwordTEController = TextEditingController();
 
+  final LoginController _loginController = Get.find<LoginController>();
 
   @override
   Widget build(BuildContext context) {
@@ -53,14 +62,22 @@ class _SignInScreenState extends State<SignInScreen> {
                   decoration: InputDecoration(hintText: 'Password'),
                 ),
                 const SizedBox(height: 16),
-                FilledButton(
-                  onPressed: _onTapLoginButton,
-                  child: Text('Login'),
+                GetBuilder<LoginController>(
+                  builder: (_) {
+                    return Visibility(
+                      visible: _loginController.logInProgress == false,
+                      replacement: CenteredCircularProgress(),
+                      child: FilledButton(
+                        onPressed: _onTapLoginButton,
+                        child: Text('Login'),
+                      ),
+                    );
+                  }
                 ),
 
                 const SizedBox(height: 16),
                 TextButton(
-                  onPressed:  _onTapForgotPasswordButton,
+                  onPressed: _onTapForgotPasswordButton,
                   child: Text('Forgot Password ?'),
                 ),
 
@@ -77,15 +94,33 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  void _onTapLoginButton() {}
+  void _onTapLoginButton() {
+    // TODO : Validate Form
+
+    _signIn();
+  }
+
+  Future<void> _signIn() async {
+    LoginRequestModel model = LoginRequestModel(
+        email: _emailTEController.text.trim(),
+        password: _passwordTEController.text);
+    bool isSuccess = await _loginController.login(model);
+    if (isSuccess) {
+      await Get.find<AuthController>().saveUserData(
+          _loginController.userModel!, _loginController.accessToken!);
+      Navigator.pushNamedAndRemoveUntil(
+          context, BottomNavHolderScreen.name, (predicate) => false);
+    } else {
+      showSnackBarMessage(context, _loginController.errorMessage!);
+    }
+  }
 
   void _onTapSignUpButton() {
     Navigator.pushNamed(context, SignUpScreen.name);
   }
 
-  void _onTapForgotPasswordButton(){
+  void _onTapForgotPasswordButton() {
     Navigator.pushNamed(context, ForgotPasswordEmailScreen.name);
-
   }
 
   @override
