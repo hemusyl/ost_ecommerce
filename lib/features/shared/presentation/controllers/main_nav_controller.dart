@@ -21,4 +21,6 @@ class MainNavController extends GetxController {
     changeIndex(0);
 
   }
+
+
 }
