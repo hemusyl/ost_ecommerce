@@ -1,6 +1,6 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:ost_ecommerce/app/controllers/login_controller.dart';
 import 'package:ost_ecommerce/app/extensions/localization_extension.dart';
 import 'package:ost_ecommerce/features/auth/data/models/login_request_model.dart';
@@ -28,65 +28,99 @@ class _SignInScreenState extends State<SignInScreen> {
 
   final LoginController _loginController = Get.find<LoginController>();
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    bool obscureText = true;
 
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                const SizedBox(height: 48),
-                AppLogo(width: 100),
-                const SizedBox(height: 24),
-                Text(
-                  context.localization.welcomeBack,
-                  style: textTheme.titleLarge,
-                ),
-                Text(
-                  context.localization.loginHeadline,
-                  style: textTheme.bodyLarge?.copyWith(color: Colors.grey),
-                ),
-                const SizedBox(height: 24),
-                TextFormField(
-                  controller: _emailTEController,
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(hintText: 'Email'),
-                ),
-                const SizedBox(height: 8),
-                TextFormField(
-                  controller: _passwordTEController,
-                  decoration: InputDecoration(hintText: 'Password'),
-                ),
-                const SizedBox(height: 16),
-                GetBuilder<LoginController>(
-                  builder: (_) {
-                    return Visibility(
-                      visible: _loginController.logInProgress == false,
-                      replacement: CenteredCircularProgress(),
-                      child: FilledButton(
-                        onPressed: _onTapLoginButton,
-                        child: Text('Login'),
-                      ),
-                    );
-                  }
-                ),
+            child: Form(
+              key: _formKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: Column(
+                children: [
+                  const SizedBox(height: 48),
+                  AppLogo(width: 100),
+                  const SizedBox(height: 24),
+                  Text(
+                    context.localization.welcomeBack,
+                    style: textTheme.titleLarge,
+                  ),
+                  Text(
+                    context.localization.loginHeadline,
+                    style: textTheme.bodyLarge?.copyWith(color: Colors.grey),
+                  ),
+                  const SizedBox(height: 25),
+                  TextFormField(
+                    controller: _emailTEController,
+                    textInputAction: TextInputAction.next,
+                    decoration: InputDecoration(hintText: 'Email'),
+                    validator:(String? value){
+                      String email = value ?? '';
+                      if(EmailValidator.validate(email) == false){
+                        return 'Enter a valid email';
+                      }
+                      return null;
+                    } ,
 
-                const SizedBox(height: 16),
-                TextButton(
-                  onPressed: _onTapForgotPasswordButton,
-                  child: Text('Forgot Password ?'),
-                ),
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _passwordTEController,
+                    obscureText: _obscureText,
+                    decoration: InputDecoration(hintText: 'Password',
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          obscureText ? Icons.visibility_off : Icons.visibility,
+                        ), onPressed: () {
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
+                      },
 
-                const SizedBox(height: 1),
-                TextButton(
-                  onPressed: _onTapSignUpButton,
-                  child: Text('Sign up'),
-                ),
-              ],
+                    ),
+                  ),
+                    validator:(String? value){
+                      if((value?.length ?? 0) <= 4){
+                        return 'Enter a valid Password';
+                      }
+                      return null;
+                    } ,
+                  ),
+                  const SizedBox(height: 16),
+                  GetBuilder<LoginController>(
+                    builder: (_) {
+                      return Visibility(
+                        visible: _loginController.logInProgress == false,
+                        replacement: CenteredCircularProgress(),
+                        child: FilledButton(
+                          onPressed: _onTapLoginButton,
+                          child: Text('Login'),
+                        ),
+                      );
+                    }
+                  ),
+
+                  const SizedBox(height: 16),
+                  TextButton(
+                    onPressed: _onTapForgotPasswordButton,
+                    child: Text('Forgot Password ?'),
+                  ),
+
+                  const SizedBox(height: 1),
+                  TextButton(
+                    onPressed: _onTapSignUpButton,
+                    child: Text('Sign up'),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -95,9 +129,9 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   void _onTapLoginButton() {
-    // TODO : Validate Form
-
-    _signIn();
+    if(_formKey.currentState!.validate()){
+      _signIn();
+    }
   }
 
   Future<void> _signIn() async {
