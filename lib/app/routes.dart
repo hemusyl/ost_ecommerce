@@ -7,6 +7,7 @@ import '../features/auth/presentation/screens/sign_up_screen.dart';
 import '../features/auth/presentation/screens/splash_screen.dart';
 import '../features/auth/presentation/screens/verity_otp.dart';
 import '../features/products/product_details_screen.dart';
+import 'forgot_password_email_screen.dart';
 
 
 MaterialPageRoute onGenerateRoute(RouteSettings settings){
@@ -29,6 +30,8 @@ MaterialPageRoute onGenerateRoute(RouteSettings settings){
     screen = ProductListScreen(categoryName: category,);
   }else if (settings.name == ProductDetailsScreen.name) {
     screen = ProductDetailsScreen();
+  }else if (settings.name == ForgotPasswordEmailScreen.name) {
+    screen = ForgotPasswordEmailScreen();
   }
 
 

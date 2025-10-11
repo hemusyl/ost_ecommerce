@@ -12,6 +12,10 @@ class ForgotPasswordEmailScreen extends StatefulWidget {
 class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: SingleChildScrollView(
+
+      ),
+    );
   }
 }
