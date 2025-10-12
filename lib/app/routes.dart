@@ -7,11 +7,11 @@ import '../features/auth/presentation/screens/sign_up_screen.dart';
 import '../features/auth/presentation/screens/splash_screen.dart';
 import '../features/auth/presentation/screens/verity_otp.dart';
 import '../features/products/product_details_screen.dart';
+import '../features/shared/presentation/models/category_model.dart';
 import 'forgot_password_email_screen.dart';
 
 
-MaterialPageRoute onGenerateRoute(RouteSettings settings){
-
+MaterialPageRoute onGenerateRoute(RouteSettings settings) {
   late Widget screen;
 
   if (settings.name == SplashScreen.name) {
@@ -22,18 +22,12 @@ MaterialPageRoute onGenerateRoute(RouteSettings settings){
     screen = SignUpScreen();
   } else if (settings.name == VerifyOtpScreen.name) {
     final String email = settings.arguments as String;
-    screen = VerifyOtpScreen(email: email );
+    screen = VerifyOtpScreen(email: email);
   } else if (settings.name == BottomNavHolderScreen.name) {
     screen = BottomNavHolderScreen();
-  }else if (settings.name == ProductListScreen.name) {
-    final String category = settings.arguments as String;
-    screen = ProductListScreen(categoryName: category,);
-  }else if (settings.name == ProductDetailsScreen.name) {
-    screen = ProductDetailsScreen();
-  }else if (settings.name == ForgotPasswordEmailScreen.name) {
-    screen = ForgotPasswordEmailScreen();
+  } else if (settings.name == ProductListScreen.name) {
+    final CategoryModel category = settings.arguments as CategoryModel;
+    screen = ProductListScreen(category: category);
   }
-
-
   return MaterialPageRoute(builder: (ctx) => screen);
 }

@@ -8,6 +8,7 @@ import 'package:ost_ecommerce/features/home/presentation/controllers/home_slider
 import '../../../home/presentation/screens/home_screen/category_list_screen.dart';
 import '../../../home/presentation/screens/home_screen/home_screen.dart';
 import '../../../products/wish_list.dart';
+import '../controllers/category_controller.dart';
 import '../controllers/main_nav_controller.dart';
 
 class BottomNavHolderScreen extends StatefulWidget {
@@ -34,6 +35,7 @@ class _BottomNavHolderScreenState extends State<BottomNavHolderScreen> {
   void initState(){
     super.initState();
     Get.find<HomeSliderController>().getHomeSliders();
+    Get.find<CategoryController>().getCategoryList();
   }
 
 

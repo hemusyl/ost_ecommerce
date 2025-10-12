@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../shared/presentation/controllers/category_controller.dart';
-import '../../../../shared/presentation/controllers/main_nav_controller.dart';
-import '../../../../shared/presentation/widgets/centered_circular_progress.dart';
-import '../../../../shared/presentation/widgets/product_category_item.dart';
+import '../../shared/presentation/controllers/category_controller.dart';
+import '../../shared/presentation/controllers/main_nav_controller.dart';
+import '../../shared/presentation/widgets/centered_circular_progress.dart';
+import '../../shared/presentation/widgets/product_category_item.dart';
 
 class CategoryListScreen extends StatefulWidget {
   const CategoryListScreen({super.key});
