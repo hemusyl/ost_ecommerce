@@ -3,7 +3,6 @@ import 'package:ost_ecommerce/features/products/product_details_screen.dart';
 import 'package:ost_ecommerce/features/shared/presentation/models/product_model.dart';
 
 import '../../../../app/app_colors.dart';
-import '../../../../app/asset_paths.dart';
 import '../../../../app/constants.dart';
 
 class ProductCard extends StatelessWidget {
@@ -43,7 +42,7 @@ class ProductCard extends StatelessWidget {
                       width: 140,
                       height: 80,
                       child: Icon(
-                        Icons.error_outline,
+                        Icons.broken_image,
                         size: 48,
                         color: Colors.grey,
                       ),
