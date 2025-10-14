@@ -1,119 +1,187 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:ost_ecommerce/features/products/widgets/color_picker.dart';
 import 'package:ost_ecommerce/features/products/widgets/product_image_slider.dart';
 import 'package:ost_ecommerce/features/products/widgets/size_picker.dart';
 import 'package:ost_ecommerce/features/products/widgets/total_price_and_cart_section.dart';
 
 import '../../app/app_colors.dart';
+import '../shared/presentation/controllers/product_details_contorller.dart';
+import '../shared/presentation/widgets/centered_circular_progress.dart';
 import '../shared/presentation/widgets/inc_dec_button.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  const ProductDetailsScreen({super.key});
+  const ProductDetailsScreen({super.key, required this.productId});
 
   static const String name = '/product-details';
+
+  final String productId;
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  final ProductDetailsController _productDetailsController =
+  ProductDetailsController();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _productDetailsController.getProductDetails(widget.productId);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       appBar: AppBar(title: Text('Product Details')),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ProductImageSlider(),
-                  Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          spacing: 8,
+      body: GetBuilder(
+        init: _productDetailsController,
+        builder: (controller) {
+          if (controller.getProductDetailsInProgress) {
+            return CenteredCircularProgress();
+          }
+
+          if (controller.errorMessage != null) {
+            return Center(child: Text(controller.errorMessage!));
+          }
+
+          return Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      ProductImageSlider(
+                        imageUrls: controller.productDetails?.photos ?? [],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Nikw A123 - New Edition Of Jordan',
-                                    style: textTheme.bodyLarge?.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  Row(
+                            Row(
+                              spacing: 8,
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
                                     children: [
-                                      Wrap(
-                                        children: [
-                                          Icon(
-                                            Icons.star,
-                                            size: 22,
-                                            color: Colors.amber,
-                                          ),
-                                          Text('4.2', style: TextStyle(
-                                            fontSize: 18,
-                                          ), ),
-                                        ],
-                                      ),
-                                      TextButton(onPressed: (){}, child: Text('Reviews'),),
-                                      Padding(
-                                        padding: const EdgeInsets.all(3),
-                                        child: Card(
-                                          color: AppColors.themeColor,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(2),
-                                          ),
-                                          child: Icon(
-                                            Icons.favorite_outline,
-                                            size: 22,
-                                            color: Colors.white,
-                                          ),
+                                      Text(
+                                        controller.productDetails?.title ?? '',
+                                        style: textTheme.bodyLarge?.copyWith(
+                                          fontWeight: FontWeight.w600,
                                         ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Wrap(
+                                            children: [
+                                              Icon(
+                                                Icons.star,
+                                                size: 24,
+                                                color: Colors.amber,
+                                              ),
+                                              Text(
+                                                controller
+                                                    .productDetails
+                                                    ?.rating ??
+                                                    '',
+                                                style: TextStyle(fontSize: 18),
+                                              ),
+                                            ],
+                                          ),
+                                          TextButton(
+                                            onPressed: () {},
+                                            child: Text('Reviews'),
+                                          ),
+                                          Card(
+                                            color: AppColors.themeColor,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(4),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(2),
+                                              child: Icon(
+                                                Icons.favorite_outline,
+                                                size: 18,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
-                                ],
+                                ),
+                                SizedBox(
+                                  width: 80,
+                                  child: IncDecButton(onChange: (int value) {}),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            Visibility(
+                              visible: (controller.productDetails?.colors ?? [])
+                                  .isNotEmpty,
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: Text(
+                                  'Color',
+                                  style: TextStyle(fontSize: 18),
+                                ),
                               ),
                             ),
-                            SizedBox(
-                              width: 95,
-                              child: IncDecButton(onChange: (int value) {}),
+                            const SizedBox(height: 8),
+                            ColorPicker(
+                              colors: controller.productDetails?.colors ?? [],
+                              onSelected: (String color) {},
+                            ),
+                            const SizedBox(height: 16),
+                            Visibility(
+                              visible: (controller.productDetails?.sizes ?? [])
+                                  .isNotEmpty,
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: Text(
+                                  'Size',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              ),
+                            ),
+                            SizePicker(
+                              sizes: controller.productDetails?.sizes ?? [],
+                              onSelected: (String size) {},
+                            ),
+                            const SizedBox(height: 16),
+                            Text('Description', style: TextStyle(fontSize: 18)),
+                            Text(
+                              controller.productDetails?.description ?? '',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.grey,
+                              ),
                             ),
                           ],
                         ),
-                        Text('Color',style: TextStyle(fontSize: 18),),
-                        const SizedBox(height: 8,),
-                        ColorPicker(colors: ['Red','Black', 'White'], onSelected: (String ) {  },),
-                        const SizedBox(height: 8,),
-                        Text('Size',style: TextStyle(fontSize: 18),),
-                        const SizedBox(height: 8,),
-                        SizePicker(sizes: ['S','M', 'L'], onSelected: (String ) {  },),
-                        const SizedBox(height: 15),
-                        Text('Description', style: TextStyle(fontSize: 18)),
-                        Text(
-                          '''Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book''',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
-          TotalPriceAndCartSection(),
-        ],
+              TotalPriceAndCartSection(
+                productModel: controller.productDetails!,
+              ),
+            ],
+          );
+        },
       ),
     );
   }
