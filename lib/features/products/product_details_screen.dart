@@ -65,7 +65,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
-                              spacing: 8,
+                              spacing: 5,
                               children: [
                                 Expanded(
                                   child: Column(
@@ -84,7 +84,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                             children: [
                                               Icon(
                                                 Icons.star,
-                                                size: 24,
+                                                size: 18,
                                                 color: Colors.amber,
                                               ),
                                               Text(
@@ -110,7 +110,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                               padding: const EdgeInsets.all(2),
                                               child: Icon(
                                                 Icons.favorite_outline,
-                                                size: 18,
+                                                size: 15,
                                                 color: Colors.white,
                                               ),
                                             ),
@@ -121,7 +121,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 80,
+                                  width: 86,
                                   child: IncDecButton(onChange: (int value) {}),
                                 ),
                               ],

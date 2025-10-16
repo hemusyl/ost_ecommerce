@@ -16,7 +16,7 @@ class _IncDecButtonState extends State<IncDecButton> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      spacing: 4,
+      spacing: 2,
       children: [
         _buildButton(Icons.remove, () {
           if (_currentValue > 1) {
@@ -49,7 +49,7 @@ class _IncDecButtonState extends State<IncDecButton> {
           borderRadius: BorderRadius.circular(4),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(4),
+          padding: const EdgeInsets.all(3),
           child: Icon(icon, color: Colors.white),
         ),
       ),

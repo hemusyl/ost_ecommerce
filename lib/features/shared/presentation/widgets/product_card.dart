@@ -21,7 +21,7 @@ class ProductCard extends StatelessWidget {
         color: Colors.white,
         shadowColor: AppColors.themeColor.withOpacity(0.2),
         child: SizedBox(
-          width: 140,
+          width: 142,
           child: Column(
             children: [
               Container(
@@ -35,15 +35,15 @@ class ProductCard extends StatelessWidget {
                 ),
                 child: Image.network(
                   productModel.photos.firstOrNull ?? '',
-                  width: 140,
+                  width: 145,
                   height: 80,
                   errorBuilder: (_, __, ___) {
                     return SizedBox(
-                      width: 140,
+                      width: 142,
                       height: 80,
                       child: Icon(
                         Icons.broken_image,
-                        size: 48,
+                        size: 40,
                         color: Colors.grey,
                       ),
                     );
