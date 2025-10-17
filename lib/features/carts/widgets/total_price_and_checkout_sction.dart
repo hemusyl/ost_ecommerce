@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/src/simple/get_state.dart';
 
 import '../../../../app/app_colors.dart';
 import '../../../../app/constants.dart';
+import '../controllers/cart_list_controller.dart';
 
 class TotalPriceAndCheckoutSection extends StatelessWidget {
   const TotalPriceAndCheckoutSection({super.key});
@@ -31,11 +33,15 @@ class TotalPriceAndCheckoutSection extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              Text(
-                '${takaSign}1000',
-                style: textTheme.titleMedium?.copyWith(
-                  color: AppColors.themeColor,
-                ),
+              GetBuilder<CartListController>(
+                  builder: (controller) {
+                    return Text(
+                      '$takaSign${controller.totalPrice}',
+                      style: textTheme.titleMedium?.copyWith(
+                        color: AppColors.themeColor,
+                      ),
+                    );
+                  }
               ),
             ],
           ),
