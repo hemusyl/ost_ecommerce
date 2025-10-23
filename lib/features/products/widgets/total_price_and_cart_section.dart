@@ -28,7 +28,7 @@ class _TotalPriceAndCartSectionState extends State<TotalPriceAndCartSection> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: AppColors.themeColor.withOpacity(0.1),
         borderRadius: BorderRadius.only(

@@ -24,7 +24,7 @@ class CartItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            margin: EdgeInsets.all(4),
+            margin: EdgeInsets.all(5),
             decoration: BoxDecoration(),
             child: Image.network(
               cartItemModel.product.photos.isEmpty

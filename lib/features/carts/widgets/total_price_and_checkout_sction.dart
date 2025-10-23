@@ -3,14 +3,22 @@ import 'package:get/get_state_manager/src/simple/get_state.dart';
 
 import '../../../../app/app_colors.dart';
 import '../../../../app/constants.dart';
+import '../../payments/sslcommerz.dart';
 import '../controllers/cart_list_controller.dart';
 
-class TotalPriceAndCheckoutSection extends StatelessWidget {
+class TotalPriceAndCheckoutSection extends StatefulWidget {
   const TotalPriceAndCheckoutSection({super.key});
 
   @override
+  State<TotalPriceAndCheckoutSection> createState() => _TotalPriceAndCheckoutSectionState();
+}
+
+class _TotalPriceAndCheckoutSectionState extends State<TotalPriceAndCheckoutSection> {
+  @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final textTheme = Theme
+        .of(context)
+        .textTheme;
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -47,10 +55,14 @@ class TotalPriceAndCheckoutSection extends StatelessWidget {
           ),
           SizedBox(
             width: 120,
-            child: FilledButton(onPressed: () {}, child: Text('Checkout')),
+            child: FilledButton(onPressed: () {
+              paymentGatewayIntegration();
+            }, child: Text('Checkout')),
           ),
         ],
       ),
     );
   }
+
+
 }
