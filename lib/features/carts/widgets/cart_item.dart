@@ -63,9 +63,52 @@ class CartItem extends StatelessWidget {
                         ),
                       ),
                       IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.delete_forever_outlined),
+                        onPressed: () async {
+                          // Ask user to confirm before deleting
+                          final confirm = await Get.dialog<bool>(
+                            AlertDialog(
+                              title: Text('Remove Item'),
+                              content: Text('Are you sure you want to delete this item from your cart?'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Get.back(result: false),
+                                  child: Text('Cancel'),
+                                ),
+                                TextButton(
+                                  onPressed: () => Get.back(result: true),
+                                  child: Text('Delete'),
+                                ),
+                              ],
+                            ),
+                          );
+
+                          if (confirm == true) {
+
+                           final controller = Get.find<CartListController>();
+                           final success = await controller.removeCart(int.parse(cartItemModel.id));
+
+                            if (success) {
+                              Get.snackbar(
+                                'Removed',
+                                'Item removed from cart',
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: Colors.green.shade50,
+                                colorText: Colors.black,
+                              );
+                            } else {
+                              Get.snackbar(
+                                'Error',
+                                controller.errorMessage ?? 'Failed to remove item',
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: Colors.red.shade50,
+                                colorText: Colors.black,
+                              );
+                            }
+                          }
+                        },
+                        icon: Icon(Icons.delete_forever_outlined, color: Colors.redAccent, size: 26,),
                       ),
+
                     ],
                   ),
                   Row(
@@ -91,3 +134,5 @@ class CartItem extends StatelessWidget {
     );
   }
 }
+
+

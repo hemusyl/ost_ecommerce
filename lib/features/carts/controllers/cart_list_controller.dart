@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../app/utils/urls.dart';
@@ -44,6 +45,47 @@ class CartListController extends GetxController {
     return isSuccess;
   }
 
+
+  Future<bool> removeCart(dynamic cartItemId) async {
+    bool isSuccess = false;
+    _inProgress = true;
+    update();
+
+    try {
+      // Example: your API may expect DELETE /cart/{id} or POST with id in body.
+      // Replace with the appropriate NetworkCaller method & Url.
+      final NetworkResponse response = await Get.find<NetworkCaller>().deleteRequest(
+        url: Urls.cartDeleteUrl(cartItemId), // adjust to your endpoint
+        body: {'id': cartItemId}, // adjust payload if needed
+      );
+
+      if (response.isSuccess) {
+        // remove locally
+        _cartItemList.removeWhere((item) => item.id == cartItemId);
+        isSuccess = true;
+      } else {
+        // server returned error
+        isSuccess = false;
+        // Optionally keep _errorMessage
+        _errorMessage = response.errorMessage;
+      }
+    } catch (e) {
+      _errorMessage = e.toString();
+      isSuccess = false;
+    } finally {
+      _inProgress = false;
+      update();
+    }
+
+    return isSuccess;
+  }
+
+
+
+
+
+
+
   int get totalPrice {
     int total = 0;
     for (CartItemModel item in _cartItemList) {
@@ -58,4 +100,5 @@ class CartListController extends GetxController {
         .quantity = quantity;
     update();
   }
+
 }

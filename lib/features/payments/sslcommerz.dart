@@ -4,17 +4,17 @@ import 'package:flutter_sslcommerz/model/SSLCurrencyType.dart';
 import 'package:flutter_sslcommerz/sslcommerz.dart';
 
 void paymentGatewayIntegration() async {
-  var totalPrice = 1.0;
+  double totalPrice = 1.0;
   Sslcommerz sslcommerz = Sslcommerz(
     initializer: SSLCommerzInitialization(
       multi_card_name: "visa,master,bkash",
       currency: SSLCurrencyType.BDT,
       product_category: "Food",
       sdkType: SSLCSdkType.TESTBOX,
-      store_id: "ostad6824b3be647db",
-      store_passwd: "ostad6824b3be647db@ssl",
+      store_id: "wpdev68f341da99e2e",
+      store_passwd: "wpdev68f341da99e2e@ssl",
       total_amount: totalPrice,
-      tran_id: "custom_transaction_id-001655ndggjhgftywe5454",
+      tran_id: "Test-001655nH4",
     ),
   );
 

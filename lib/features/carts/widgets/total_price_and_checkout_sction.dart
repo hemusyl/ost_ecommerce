@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sslcommerz/model/SSLCSdkType.dart';
+import 'package:flutter_sslcommerz/model/SSLCommerzInitialization.dart';
+import 'package:flutter_sslcommerz/model/SSLCurrencyType.dart';
+import 'package:flutter_sslcommerz/sslcommerz.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
 import '../../../../app/app_colors.dart';
@@ -14,6 +18,8 @@ class TotalPriceAndCheckoutSection extends StatefulWidget {
 }
 
 class _TotalPriceAndCheckoutSectionState extends State<TotalPriceAndCheckoutSection> {
+
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:ost_ecommerce/features/products/widgets/color_picker.dart';
 import 'package:ost_ecommerce/features/products/widgets/product_image_slider.dart';
@@ -8,8 +8,7 @@ import 'package:ost_ecommerce/features/products/widgets/size_picker.dart';
 import 'package:ost_ecommerce/features/products/widgets/total_price_and_cart_section.dart';
 
 import '../../app/app_colors.dart';
-import '../carts/controllers/cart_list_controller.dart';
-import '../carts/data/models/cart_item_model.dart';
+
 import '../shared/presentation/controllers/product_details_contorller.dart';
 import '../shared/presentation/widgets/centered_circular_progress.dart';
 import '../shared/presentation/widgets/inc_dec_button.dart';
