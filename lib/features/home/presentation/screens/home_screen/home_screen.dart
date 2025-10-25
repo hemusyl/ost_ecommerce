@@ -56,9 +56,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 16),
               _buildSectionHeader(
-                title: 'Categories',
+                title: 'All Categories',
                 onTapSeeAll: () {
-                  Get.find<MainNavController>().moveToCategory();
+                 Get.find<MainNavController>().moveToCategory();
                 },
               ),
               _buildCategoryList(),

@@ -85,7 +85,7 @@ class CartItem extends StatelessWidget {
                           if (confirm == true) {
 
                            final controller = Get.find<CartListController>();
-                           final success = await controller.removeCart(int.parse(cartItemModel.id));
+                           final success = await controller.removeCart(cartItemModel.id);
 
                             if (success) {
                               Get.snackbar(
