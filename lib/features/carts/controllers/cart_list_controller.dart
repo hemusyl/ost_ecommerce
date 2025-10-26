@@ -82,10 +82,6 @@ class CartListController extends GetxController {
 
 
 
-
-
-
-
   int get totalPrice {
     int total = 0;
     for (CartItemModel item in _cartItemList) {
