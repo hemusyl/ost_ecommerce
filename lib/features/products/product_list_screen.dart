@@ -50,7 +50,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
           return Column(
             children: [
               Expanded(
-                child: GridView.builder(
+                child: ListView.builder(
                   controller: _scrollController,
                   itemCount: controller.productList.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
