@@ -29,7 +29,7 @@ android {
         applicationId = "com.wpdevusa.ost_ecommerce"
 
         // ✅ Explicit SDK versions (don’t rely on flutter.* constants)
-        minSdk = 23
+        minSdk = flutter.minSdkVersion
         targetSdk = 36
 
         versionCode = flutter.versionCode

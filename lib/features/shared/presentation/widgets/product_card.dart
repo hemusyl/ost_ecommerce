@@ -6,9 +6,14 @@ import '../../../../app/app_colors.dart';
 import '../../../../app/constants.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key, required this.productModel});
+    const ProductCard({super.key,
+    required this.productModel,
+    this.onWishlistToggle,
+    this.isInWishlist = false,});
 
   final ProductModel productModel;
+  final VoidCallback? onWishlistToggle;
+  final bool isInWishlist;
 
   @override
   Widget build(BuildContext context) {
@@ -22,81 +27,84 @@ class ProductCard extends StatelessWidget {
         shadowColor: AppColors.themeColor.withOpacity(0.2),
         child: SizedBox(
           width: 142,
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: AppColors.themeColor.withOpacity(0.1),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    topRight: Radius.circular(8),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: AppColors.themeColor.withOpacity(0.1),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      topRight: Radius.circular(8),
+                    ),
+                  ),
+                  child: Image.network(
+                    productModel.photos.firstOrNull ?? '',
+                    width: 145,
+                    height: 80,
+                    errorBuilder: (_, __, ___) {
+                      return SizedBox(
+                        width: 142,
+                        height:80,
+                        child: Icon(
+                          Icons.broken_image,
+                          size: 40,
+                          color: Colors.grey,
+                        ),
+                      );
+                    },
                   ),
                 ),
-                child: Image.network(
-                  productModel.photos.firstOrNull ?? '',
-                  width: 145,
-                  height: 80,
-                  errorBuilder: (_, __, ___) {
-                    return SizedBox(
-                      width: 142,
-                      height: 80,
-                      child: Icon(
-                        Icons.broken_image,
-                        size: 40,
-                        color: Colors.grey,
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 4,
+                    children: [
+                      Text(
+                        productModel.title,
+                        maxLines: 1,
+                        style: TextStyle(overflow: TextOverflow.ellipsis),
                       ),
-                    );
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 4,
-                  children: [
-                    Text(
-                      productModel.title,
-                      maxLines: 1,
-                      style: TextStyle(overflow: TextOverflow.ellipsis),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '$takaSign${productModel.currentPrice}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.themeColor,
-                          ),
-                        ),
-                        Wrap(
-                          children: [
-                            Icon(Icons.star, size: 18, color: Colors.amber),
-                            Text(productModel.rating.toString()),
-                          ],
-                        ),
-                        Card(
-                          color: AppColors.themeColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(2),
-                            child: Icon(
-                              Icons.favorite_outline,
-                              size: 14,
-                              color: Colors.white,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '$takaSign${productModel.currentPrice}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.themeColor,
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                          Wrap(
+                            children: [
+                              Icon(Icons.star, size: 18, color: Colors.amber),
+                              Text(productModel.rating.toString()),
+                            ],
+                          ),
+                          Card(
+                            color: AppColors.themeColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(2),
+                              child: Icon(
+                                Icons.favorite_outline,
+                                size: 14,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

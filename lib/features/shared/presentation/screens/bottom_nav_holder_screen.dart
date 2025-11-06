@@ -7,7 +7,7 @@ import 'package:ost_ecommerce/features/home/presentation/controllers/home_slider
 
 import '../../../home/presentation/screens/home_screen/category_list_screen.dart';
 import '../../../home/presentation/screens/home_screen/home_screen.dart';
-import '../../../products/wish_list.dart';
+import '../../../wish/screens/wish_list_screen.dart';
 import '../controllers/category_controller.dart';
 import '../controllers/main_nav_controller.dart';
 
@@ -27,7 +27,7 @@ class _BottomNavHolderScreenState extends State<BottomNavHolderScreen> {
     HomeScreen(),
     CategoryListScreen(),
     CartScreen(),
-    wishListScreen(),
+    WishListScreen(),
 
   ];
 

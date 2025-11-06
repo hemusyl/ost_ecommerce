@@ -4,58 +4,68 @@ import '../../../../app/utils/urls.dart';
 import '../../../../core/models/network_response.dart';
 import '../../../../core/services/network_caller.dart';
 import '../models/category_model.dart';
+import '../models/product_model.dart';
 
-class CategoryController extends GetxController {
+
+class NewProductController extends GetxController {
   int _currentPage = 0;
 
   int? _lastPageNo;
 
   final int _pageSize = 40;
 
-  bool _getCategoryInProgress = false;
+  bool _getNewProductInProgress = false;
 
   bool _isInitialLoading = false;
 
- final List<CategoryModel> _categoryList = [];
+  final List<ProductModel> _NewProductList = [];
+
+
 
   String? _errorMessage;
 
-  bool get getCategoryInProgress => _getCategoryInProgress;
+  bool get getProductsInProgress  => _getNewProductInProgress;
 
   bool get isInitialLoading => _isInitialLoading;
 
-  List<CategoryModel> get categoryList => _categoryList;
+  List<ProductModel> get NewProductList => _NewProductList;
 
   String? get errorMessage => _errorMessage;
 
-  Future<bool> getCategoryList() async {
+  @override
+  void onInit() {
+    super.onInit();
+    getNewProductList();
+  }
+
+  Future<bool> getNewProductList() async {
     bool isSuccess = false;
 
     if (_currentPage > (_lastPageNo ?? 1)) {
       return false;
     }
     if (_currentPage == 0) {
-      _categoryList.clear();
+      _NewProductList.clear();
       _isInitialLoading = true;
     } else {
-      _getCategoryInProgress = true;
+      _getNewProductInProgress = true;
     }
     update();
 
     _currentPage++;
 
     final NetworkResponse response = await Get.find<NetworkCaller>().getRequest(
-        url: Urls.categoryList(_currentPage, _pageSize));
+        url: Urls.newProducts(_currentPage, _pageSize));
+
+
+
     if (response.isSuccess) {
-
       _lastPageNo = response.body!['data']['last_page'];
-
-      List<CategoryModel> list = [];
-
+      List<ProductModel> list = [];
       for (Map<String, dynamic> jsonData in response.body!['data']['results']) {
-        list.add(CategoryModel.fromJson(jsonData));
+        list.add(ProductModel.fromJson(jsonData));
       }
-      _categoryList.addAll(list);
+      _NewProductList.addAll(list);
       isSuccess = true;
       _errorMessage = null;
     } else {
@@ -65,7 +75,7 @@ class CategoryController extends GetxController {
     if (_isInitialLoading) {
       _isInitialLoading = false;
     } else {
-      _getCategoryInProgress = false;
+      _getNewProductInProgress = false;
     }
 
     update();
@@ -74,6 +84,6 @@ class CategoryController extends GetxController {
 
   Future<void> refreshCategoryList() async {
     _currentPage = 0;
-    getCategoryList();
+    getNewProductList();
   }
 }

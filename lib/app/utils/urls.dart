@@ -14,8 +14,34 @@ class Urls {
   static String productDetailsUrl(String productId) =>
       '$_baseUrl/products/id/$productId';
 
+  static String popularProducts(int pageNo, int pageSize) =>
+      '$_baseUrl/products?count=$pageSize&page=$pageNo&tag=popular';
+
+  static String specialProducts(int pageNo, int pageSize) =>
+      '$_baseUrl/products?count=$pageSize&page=$pageNo&tag=special';
+
+  static String newProducts(int pageNo, int pageSize) =>
+      '$_baseUrl/products?count=$pageSize&page=$pageNo&tag=new';
+
   static const String addToCartUrl = '$_baseUrl/cart';
   static const String cartListUrl = '$_baseUrl/cart';
   static String cartDeleteUrl(String id) => '$_baseUrl/cart/$id';
+
+
+  // Wishlist URLs
+  static const String wishlistUrl = '$_baseUrl/wishlist';
+  static String deleteWishlistItemUrl(String wishlistItemId) =>
+      '$_baseUrl/wishlist/$wishlistItemId';
+
+  // Review URLs
+  static const String createReviewUrl = '$_baseUrl/review';
+  static String updateReviewUrl(String reviewId) =>
+      '$_baseUrl/reviews/$reviewId';
+  static String getReviewsUrl(String productId) =>
+      '$_baseUrl/reviews?product=$productId';
+
+  // Order URLs
+  static const String createOrderUrl = '$_baseUrl/order';
+
 
 }

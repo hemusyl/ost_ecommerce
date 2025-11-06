@@ -4,6 +4,8 @@ class ProductModel {
   final List<String> photos;
   final int currentPrice;
   final double rating;
+  final String? brand;
+  final List<String>? tags;
 
   ProductModel({
     required this.id,
@@ -11,6 +13,8 @@ class ProductModel {
     required this.photos,
     required this.currentPrice,
     required this.rating,
+    this.brand,
+    this.tags,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> jsonData) {
@@ -22,4 +26,17 @@ class ProductModel {
       rating: 2.0,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      '_id': id,
+      'title': title,
+      'photos': photos,
+      'current_price': currentPrice,
+      'rating': rating,
+      'brand': brand,
+      'tags': tags,
+    };
+  }
+
 }
