@@ -8,6 +8,7 @@ import 'package:ost_ecommerce/app/routes.dart';
 import 'package:ost_ecommerce/l10n/app_localizations.dart';
 import '../features/auth/presentation/screens/splash_screen.dart';
 
+import '../features/shared/presentation/screens/bottom_nav_holder_screen.dart';
 import 'app_theme.dart';
 import 'controllers/language_controller.dart';
 
@@ -49,8 +50,8 @@ class _CraftyBayState extends State<CraftyBay> {
           darkTheme: AppTheme.darkThemeData,
           themeMode: ThemeMode.light,
           debugShowCheckedModeBanner: false,
-          home: SplashScreen(),
-          initialRoute: SplashScreen.name,
+          home: BottomNavHolderScreen(),
+          initialRoute: '/',
           onGenerateRoute: onGenerateRoute,
           initialBinding: ControllerBinding(),
         );

@@ -12,6 +12,7 @@ import 'app/app.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Firebase install
   await Firebase.initializeApp(
     options:DefaultFirebaseOptions.currentPlatform,
   );
