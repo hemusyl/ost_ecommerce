@@ -10,7 +10,7 @@ import 'package:ost_ecommerce/features/shared/presentation/widgets/centered_circ
 import '../../../../app/controllers/auth_controller.dart';
 import '../../../../app/forgot_password_email_screen.dart';
 import '../../../shared/presentation/screens/bottom_nav_holder_screen.dart';
-import '../../../shared/presentation/widgets/snack_bar_message.dart';
+
 import '../widgets/app_logo.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -34,7 +34,7 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    bool obscureText = true;
+
 
     return Scaffold(
       body: SafeArea(
@@ -78,7 +78,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     decoration: InputDecoration(hintText: 'Password',
                       suffixIcon: IconButton(
                         icon: Icon(
-                          obscureText ? Icons.visibility_off : Icons.visibility,
+                          Icons.visibility_off,
                         ), onPressed: () {
                           setState(() {
                             _obscureText = !_obscureText;
@@ -141,11 +141,20 @@ class _SignInScreenState extends State<SignInScreen> {
     bool isSuccess = await _loginController.login(model);
     if (isSuccess) {
       await Get.find<AuthController>().saveUserData(
-          _loginController.userModel!, _loginController.accessToken!);
-      Navigator.pushNamedAndRemoveUntil(
-          context, BottomNavHolderScreen.name, (predicate) => false);
+        _loginController.userModel!,
+        _loginController.accessToken!,
+      );
+
+      // SAFE: no BuildContext used
+      Get.offAllNamed(BottomNavHolderScreen.name);
+
     } else {
-      showSnackBarMessage(context, _loginController.errorMessage!);
+      // SAFE: no BuildContext used
+      Get.snackbar(
+        "Error",
+        _loginController.errorMessage!,
+        snackPosition: SnackPosition.BOTTOM,
+      );
     }
   }
 
