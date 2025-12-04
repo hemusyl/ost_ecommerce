@@ -16,7 +16,7 @@ class AppBarIconButton extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(16),
       child: Padding(
-        padding: const EdgeInsets.only(right: 12),
+        padding: const EdgeInsets.only(right: 13),
         child: CircleAvatar(
           radius: 14,
           backgroundColor: Colors.grey.shade200,

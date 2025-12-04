@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:ost_ecommerce/features/carts/cart_screen.dart';
 import 'package:ost_ecommerce/features/home/presentation/controllers/home_slider_controller.dart';
 
