@@ -17,7 +17,7 @@ class MainNavController extends GetxController {
    changeIndex(1);
 
   }
-  void backToHome(){
+  void  backToHome(){
     changeIndex(0);
 
   }

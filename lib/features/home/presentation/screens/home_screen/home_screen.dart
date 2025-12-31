@@ -7,6 +7,7 @@ import 'package:ost_ecommerce/features/shared/presentation/widgets/centered_circ
 import '../../../../../app/asset_paths.dart';
 import '../../../../shared/presentation/controllers/main_nav_controller.dart';
 import '../../../../shared/presentation/controllers/new_product_controller.dart';
+import '../../../../shared/presentation/screens/search_results_page.dart';
 import '../../../../shared/presentation/widgets/app_bar_icon_button.dart';
 import '../../../../shared/presentation/widgets/home_banner_slider.dart';
 import '../../../../shared/presentation/widgets/product_card.dart';
@@ -14,7 +15,7 @@ import '../../../../shared/presentation/widgets/product_category_item.dart';
 import '../../../../shared/presentation/widgets/snack_bar_message.dart';
 import '../../../../wish/controller/wishlist_controller.dart';
 import '../../controllers/home_slider_controller.dart';
-import 'package:ost_ecommerce/app/controllers/search_controller_ah.dart';
+
 
 
 class HomeScreen extends StatefulWidget {
@@ -27,7 +28,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
   late ScrollController _scrollController;
-  late final SearchControllerOst searchController;
 
 
   @override
@@ -35,7 +35,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
 
     Get.put(NewProductController());
-    searchController = Get.put(SearchControllerOst()); // <--- register & keep reference
 
     Get.find<NewProductController>().getNewProductList();
     _scrollController = ScrollController();
@@ -255,78 +254,24 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
   Widget _buildSearchBar() {
-    final search = searchController; // <-- from initState
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TextField(
-          onChanged: (text) => search.searchProducts(text),
-          textInputAction: TextInputAction.search,
-          decoration: InputDecoration(
-            hintText: 'Search products...',
-            fillColor: Colors.grey.shade100,
-            filled: true,
-            enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
-            focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
-            prefixIcon: Icon(Icons.search),
-          ),
-        ),
-
-        const SizedBox(height: 10),
-
-        // ---------------------------
-        // SEARCH RESULTS SECTION
-        // ---------------------------
-
-        Obx(() {
-
-          // Loader
-          if (search.isLoading.value) {
-            return const Padding(
-              padding: EdgeInsets.all(20),
-              child: Center(child: CircularProgressIndicator()),
-            );
-          }
-
-          // No search results → show nothing
-          if (search.searchResults.isEmpty) {
-            return const SizedBox();
-          }
-
-          // Show message
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 10),
-              Text(
-                "Search Results",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 10),
-
-              // Results List
-              ListView.builder(
-                itemCount: search.searchResults.length,
-                shrinkWrap: true,
-                primary: false,
-                itemBuilder: (context, index) {
-                  final product = search.searchResults[index];
-
-                  return ProductCard(
-                    productModel: product,
-                    onWishlistToggle: () => _toggleWishlist(product['id']),
-                    isInWishlist: Get.find<WishlistController>()
-                        .isInWishlist(product['id']),
-                  );
-                },
-              ),
-            ],
-          );
-        }),
-      ],
+    return TextField(
+      onSubmitted: (String text) {
+        if (text.isNotEmpty) {
+          Get.to(() => SearchResultsPage(query: text));
+        }
+      },
+      textInputAction: TextInputAction.search,
+      decoration: InputDecoration(
+        hintText: 'Search',
+        fillColor: Colors.grey.shade100,
+        filled: true,
+        enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
+        focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
+        prefixIcon: Icon(Icons.search),
+      ),
     );
   }
+
 
 
 }
