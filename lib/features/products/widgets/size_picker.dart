@@ -13,7 +13,7 @@ class SizePicker extends StatefulWidget {
 }
 
 class _SizePickerState extends State<SizePicker> {
-  String? _selectedColor;
+  String? _selectedSize;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -21,21 +21,21 @@ class _SizePickerState extends State<SizePicker> {
       children: widget.sizes.map((size) {
         return GestureDetector(
           onTap: () {
-            _selectedColor = size;
+            _selectedSize = size;
             widget.onSelected(size);
             setState(() {});
           },
           child: Container(
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
-                color: _selectedColor == size ? AppColors.themeColor : null,
+                color: _selectedSize == size ? AppColors.themeColor : null,
                 border: Border.all(
                     color: Colors.grey
                 ),
                 borderRadius: BorderRadius.circular(8)
             ),
             child: Text(size, style: TextStyle(
-              color: _selectedColor == size ? Colors.white : null,
+              color: _selectedSize == size ? Colors.white : null,
             ),),
           ),
         );

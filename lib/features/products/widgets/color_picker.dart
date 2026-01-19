@@ -17,7 +17,7 @@ class _ColorPickerState extends State<ColorPicker> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      spacing: 8,
+      spacing: 9,
       children: widget.colors.map((color) {
         return GestureDetector(
           onTap: () {

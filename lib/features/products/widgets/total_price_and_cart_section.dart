@@ -12,9 +12,15 @@ import '../../shared/presentation/widgets/centered_circular_progress.dart';
 import '../../shared/presentation/widgets/snack_bar_message.dart';
 
 class TotalPriceAndCartSection extends StatefulWidget {
-  const TotalPriceAndCartSection({super.key, required this.productModel});
+  const TotalPriceAndCartSection({super.key,
+    required this.productModel,
+    this.selectedColor,
+    this.selectedSize,
+  });
 
   final ProductDetailsModel productModel;
+  final String? selectedColor;
+  final String? selectedSize;
 
   @override
   State<TotalPriceAndCartSection> createState() =>
@@ -66,7 +72,7 @@ class _TotalPriceAndCartSectionState extends State<TotalPriceAndCartSection> {
                   visible: controller.addToCartInProgress == false,
                   replacement: CenteredCircularProgress(),
                   child: FilledButton(
-                    onPressed: _onTapAddToCardButton,
+                    onPressed:   _onTapAddToCardButton,
                     child: Text('Add to Cart'),
                   ),
                 ),
@@ -79,6 +85,16 @@ class _TotalPriceAndCartSectionState extends State<TotalPriceAndCartSection> {
   }
 
   Future<void> _onTapAddToCardButton() async {
+    // Validate color and size selection
+    final hasColors = widget.productModel.colors.isNotEmpty;
+    final hasSizes = widget.productModel.sizes.isNotEmpty;
+    
+    if ((hasColors && widget.selectedColor == null) || 
+        (hasSizes && widget.selectedSize == null)) {
+      showSnackBarMessage(context, 'Please choose size and color');
+      return;
+    }
+
     if (await Get.find<AuthController>().isUserAlreadyLoggedIn()) {
       final bool isSuccess = await _cartController.addToCart(
           widget.productModel.id);
@@ -91,4 +107,6 @@ class _TotalPriceAndCartSectionState extends State<TotalPriceAndCartSection> {
       Navigator.pushNamed(context, SignInScreen.name);
     }
   }
+
+
 }

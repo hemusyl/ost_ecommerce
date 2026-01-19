@@ -29,6 +29,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   final ProductDetailsController _productDetailsController =
   ProductDetailsController();
 
+  String? _selectedColor;
+  String? _selectedSize;
 
   @override
   void initState() {
@@ -147,7 +149,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             const SizedBox(height: 8),
                             ColorPicker(
                               colors: controller.productDetails?.colors ?? [],
-                              onSelected: (String color) {},
+                              onSelected: (String color) {
+                                setState(() {
+                                  _selectedColor = color;
+                                });
+                              },
                             ),
                             const SizedBox(height: 16),
                             Visibility(
@@ -163,7 +169,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             ),
                             SizePicker(
                               sizes: controller.productDetails?.sizes ?? [],
-                              onSelected: (String size) {},
+                              onSelected: (String size) {
+                                setState(() {
+                                  _selectedSize = size;
+                                });
+                              },
                             ),
                             const SizedBox(height: 16),
                             Text('Description', style: TextStyle(fontSize: 18)),
@@ -184,6 +194,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
               TotalPriceAndCartSection(
                 productModel: controller.productDetails!,
+                selectedColor: _selectedColor,
+                selectedSize: _selectedSize,
               ),
             ],
           );

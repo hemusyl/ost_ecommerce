@@ -144,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildNewProductList() {
     return SizedBox(
-      height: 100,
+      height: 190,
       child: GetBuilder<NewProductController>(
         builder: (controller) {
           if (controller.isInitialLoading) {
@@ -153,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
           if (controller.NewProductList.isEmpty) {
             return SizedBox(
-              height: 150,
+              height: 100,
               child: Center(child: Text('No new products found')),
             );
           }
