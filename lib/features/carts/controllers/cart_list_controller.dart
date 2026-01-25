@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../app/utils/urls.dart';
@@ -79,8 +78,6 @@ class CartListController extends GetxController {
 
     return isSuccess;
   }
-
-
 
 
 

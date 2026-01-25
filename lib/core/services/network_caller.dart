@@ -9,7 +9,7 @@ import '../models/network_response.dart';
 
 class NetworkCaller {
   final String _defaultErrorMessage = 'Something went wrong';
-  final String _unAuthorizeMessage = 'Un-authorized token';
+  final String _unAuthorizeMessage = 'Un-authorized token, Please login';
   final Logger _logger = Logger();
 
   final VoidCallback onUnAuthorize;
