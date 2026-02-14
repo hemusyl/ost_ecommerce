@@ -20,7 +20,7 @@ class SSLPaymentHelper {
           store_id: "wpdev68f341da99e2e",
           store_passwd: "wpdev68f341da99e2e@ssl",
           total_amount:  totalAmount.toDouble(),
-          tran_id: "Test-001655nH4",
+          tran_id: tranId,
         ),
       );
 
