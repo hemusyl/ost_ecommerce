@@ -1,40 +1,73 @@
+import 'dart:convert';
+
 import 'package:flutter_sslcommerz/model/SSLCSdkType.dart';
 import 'package:flutter_sslcommerz/model/SSLCommerzInitialization.dart';
 import 'package:flutter_sslcommerz/model/SSLCurrencyType.dart';
 import 'package:flutter_sslcommerz/sslcommerz.dart';
 
-void paymentGatewayIntegration() async {
-  double totalPrice = 1.0;
-  Sslcommerz sslcommerz = Sslcommerz(
-    initializer: SSLCommerzInitialization(
-      multi_card_name: "visa,master,bkash",
-      currency: SSLCurrencyType.BDT,
-      product_category: "Food",
-      sdkType: SSLCSdkType.TESTBOX,
-      store_id: "wpdev68f341da99e2e",
-      store_passwd: "wpdev68f341da99e2e@ssl",
-      total_amount: totalPrice,
-      tran_id: "Test-001655nH4",
-    ),
-  );
+class SSLPaymentHelper {
+  static Future<Map<String, dynamic>> processPayment({
+    required int totalAmount,
+    required String tranId,
+  }) async {
+    try {
+      Sslcommerz sslcommerz = Sslcommerz(
+        initializer: SSLCommerzInitialization(
+          multi_card_name: "visa,master,bkash",
+          currency: SSLCurrencyType.BDT,
+          product_category: "Food",
+          sdkType: SSLCSdkType.TESTBOX,
+          store_id: "wpdev68f341da99e2e",
+          store_passwd: "wpdev68f341da99e2e@ssl",
+          total_amount:  totalAmount.toDouble(),
+          tran_id: "Test-001655nH4",
+        ),
+      );
 
-  final response = await sslcommerz.payNow();
+      final response = await sslcommerz.payNow();
 
-  if(response.status == 'VALID'){
-    print('Payement success');
-    print('TxID: ${response.tranId}');
-    print('TxID: ${response.tranDate}');
+      if (response.status == 'VALID') {
+        print(jsonEncode(response));
+        print('Payment completed, TRX ID: ${response.tranId}');
+        print(response.tranDate);
+        return {
+          'success': true,
+          'status': response.status,
+          'tranId': response.tranId,
+          'tranDate': response.tranDate,
+        };
+      }
+
+      if (response.status == 'Closed') {
+        print('Payment closed');
+        return {
+          'success': false,
+          'status': response.status,
+          'message': 'Payment closed',
+        };
+      }
+
+      if (response.status == 'FAILED') {
+        print('Payment failed');
+        return {
+          'success': false,
+          'status': response.status,
+          'message': 'Payment failed',
+        };
+      }
+
+      return {
+        'success': false,
+        'status': response.status,
+        'message': 'Unknown payment status',
+      };
+    } catch (e) {
+      print('SSL Payment Error: $e');
+      return {
+        'success': false,
+        'status': 'ERROR',
+        'message': 'Payment processing failed: $e',
+      };
+    }
   }
-
-  if(response.status == 'Closed'){
-    print('Payement closed');
-  }
-  if(response.status == 'FAILED'){
-    print('Payement failed');
-  }
-
 }
-
-
-
-

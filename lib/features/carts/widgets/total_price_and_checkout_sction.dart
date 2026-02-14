@@ -57,7 +57,7 @@ class _TotalPriceAndCheckoutSectionState extends State<TotalPriceAndCheckoutSect
           SizedBox(
             width: 120,
             child: FilledButton(onPressed: () {
-              paymentGatewayIntegration();
+              SSLPaymentHelper ();
             }, child: Text('Checkout')),
           ),
         ],

@@ -24,7 +24,7 @@ class ProductCard extends StatelessWidget {
       },
       child: Card(
         color: Colors.white,
-        shadowColor: AppColors.themeColor.withOpacity(0.2),
+        shadowColor: AppColors.themeColor.withValues(alpha: 0.2),
         child: SizedBox(
           width: 142,
           child: SingleChildScrollView(
@@ -34,7 +34,7 @@ class ProductCard extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: AppColors.themeColor.withOpacity(0.1),
+                    color: AppColors.themeColor.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(8),
                       topRight: Radius.circular(8),

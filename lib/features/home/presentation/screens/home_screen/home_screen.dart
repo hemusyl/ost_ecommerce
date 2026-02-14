@@ -225,6 +225,7 @@ class _HomeScreenState extends State<HomeScreen> {
           bool isSuccess = await wishlistController.removeFromWishlist(
             wishlistItemId,
           );
+
           if (isSuccess) {
             showSnackBarMessage(context, 'Removed from wishlist');
           } else {
@@ -271,8 +272,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-
 
 }
 

@@ -31,7 +31,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   String? _selectedColor;
   String? _selectedSize;
-
   @override
   void initState() {
     super.initState();
