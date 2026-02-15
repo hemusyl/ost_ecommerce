@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import '../../../../app/app_colors.dart';
 import '../../../../app/constants.dart';
+import '../../payments/payment_screen.dart';
 import '../../payments/sslcommerz.dart';
 import '../controllers/cart_list_controller.dart';
 
-class TotalPriceAndCheckoutSection extends StatefulWidget {
+class TotalPriceAndCheckoutSection extends StatelessWidget {
   const TotalPriceAndCheckoutSection({super.key});
 
   @override
-  State<TotalPriceAndCheckoutSection> createState() => _TotalPriceAndCheckoutSectionState();
-}
-
-class _TotalPriceAndCheckoutSectionState extends State<TotalPriceAndCheckoutSection> {
-
-
-  @override
   Widget build(BuildContext context) {
-    final textTheme = Theme
-        .of(context)
-        .textTheme;
+    final textTheme = Theme.of(context).textTheme;
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -43,27 +37,35 @@ class _TotalPriceAndCheckoutSectionState extends State<TotalPriceAndCheckoutSect
                 ),
               ),
               GetBuilder<CartListController>(
-                  builder: (controller) {
-                    return Text(
-                      '$takaSign${controller.totalPrice}',
-                      style: textTheme.titleMedium?.copyWith(
-                        color: AppColors.themeColor,
-                      ),
-                    );
-                  }
+                builder: (controller) {
+                  return Text(
+                    '$takaSign${controller.totalPrice}',
+                    style: textTheme.titleMedium?.copyWith(
+                      color: AppColors.themeColor,
+                    ),
+                  );
+                },
               ),
             ],
           ),
-          SizedBox(
-            width: 120,
-            child: FilledButton(onPressed: () {
-              SSLPaymentHelper ();
-            }, child: Text('Checkout')),
+          GetBuilder<CartListController>(
+            builder: (controller) {
+              return SizedBox(
+                width: 120,
+                child: FilledButton(
+                  onPressed: () {
+                    Get.toNamed(
+                      PaymentScreen.name,
+                      arguments: controller.totalPrice,
+                    );
+                  },
+                  child: Text('Checkout'),
+                ),
+              );
+            },
           ),
         ],
       ),
     );
   }
-
-
 }

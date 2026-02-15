@@ -8,6 +8,7 @@ import 'package:ost_ecommerce/features/home/presentation/controllers/home_slider
 import 'package:ost_ecommerce/features/shared/presentation/controllers/category_controller.dart';
 
 import '../features/auth/presentation/controllers/verify_otp_controller.dart';
+import '../features/order/order_controller.dart';
 import '../features/shared/presentation/controllers/main_nav_controller.dart';
 import '../features/shared/presentation/controllers/new_product_controller.dart';
 import '../features/wish/controller/wishlist_controller.dart';
@@ -25,6 +26,7 @@ class ControllerBinding extends Bindings {
     Get.put(CategoryController());
     Get.put(CartListController());
     Get.put(NewProductController());
+    Get.put(OrderController());
     Get.put(WishlistController());
   }
 }

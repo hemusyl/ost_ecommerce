@@ -6,6 +6,7 @@ import '../features/auth/presentation/screens/sign_in_screen.dart';
 import '../features/auth/presentation/screens/sign_up_screen.dart';
 import '../features/auth/presentation/screens/splash_screen.dart';
 import '../features/auth/presentation/screens/verity_otp.dart';
+import '../features/payments/payment_screen.dart';
 import '../features/products/product_details_screen.dart';
 import '../features/shared/presentation/models/category_model.dart';
 import 'forgot_password_email_screen.dart';
@@ -32,6 +33,9 @@ MaterialPageRoute onGenerateRoute(RouteSettings settings) {
   else if (settings.name == ProductDetailsScreen.name) {
     final String productId = settings.arguments as String;
     screen = ProductDetailsScreen(productId: productId);
+  }else if (settings.name == PaymentScreen.name) {
+    final int totalAmount = settings.arguments as int;
+    screen = PaymentScreen(totalAmount: totalAmount);
   }
 
   return MaterialPageRoute(builder: (ctx) => screen);

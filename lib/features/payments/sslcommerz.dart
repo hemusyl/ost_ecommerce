@@ -15,10 +15,10 @@ class SSLPaymentHelper {
         initializer: SSLCommerzInitialization(
           multi_card_name: "visa,master,bkash",
           currency: SSLCurrencyType.BDT,
-          product_category: "Food",
+          product_category: "Digital Product",
           sdkType: SSLCSdkType.TESTBOX,
-          store_id: "wpdev68f341da99e2e",
-          store_passwd: "wpdev68f341da99e2e@ssl",
+          store_id: "rootx68f1c22c9d879",
+          store_passwd: "rootx68f1c22c9d879@ssl",
           total_amount:  totalAmount.toDouble(),
           tran_id: tranId,
         ),
