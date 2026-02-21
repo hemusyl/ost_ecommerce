@@ -12,6 +12,8 @@ import '../../app/app_colors.dart';
 import '../shared/presentation/controllers/product_details_contorller.dart';
 import '../shared/presentation/widgets/centered_circular_progress.dart';
 import '../shared/presentation/widgets/inc_dec_button.dart';
+import '../shared/presentation/widgets/snack_bar_message.dart';
+import '../wish/controller/wishlist_controller.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   const ProductDetailsScreen({super.key, required this.productId,});
@@ -39,6 +41,47 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     });
   }
 
+  Future<void> _toggleWishlist(String productId) async {
+    try {
+      final WishlistController wishlistController =
+      Get.find<WishlistController>();
+
+      if (wishlistController.isInWishlist(productId)) {
+        // Remove from wishlist
+        String? wishlistItemId = wishlistController.getWishlistItemId(
+          productId,
+        );
+        if (wishlistItemId != null) {
+          bool isSuccess = await wishlistController.removeFromWishlist(
+            wishlistItemId,
+          );
+          if (isSuccess) {
+            showSnackBarMessage(context, 'Removed from wishlist');
+          } else {
+            showSnackBarMessage(
+              context,
+              wishlistController.errorMessage ??
+                  'Failed to remove from wishlist',
+            );
+          }
+        }
+      } else {
+        // Add to wishlist
+        bool isSuccess = await wishlistController.addToWishlist(productId);
+        if (isSuccess) {
+          showSnackBarMessage(context, 'Added to wishlist');
+        } else {
+          showSnackBarMessage(
+            context,
+            wishlistController.errorMessage ?? 'Failed to add to wishlist',
+          );
+        }
+      }
+    } catch (e) {
+      showSnackBarMessage(context, 'Error: ${e.toString()}');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -54,6 +97,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
           if (controller.errorMessage != null) {
             return Center(child: Text(controller.errorMessage!));
+          }
+          final product = controller.productDetails;
+
+          if (product == null) {
+            return const Center(child: Text("No product details found."));
           }
 
           return Column(
@@ -106,21 +154,36 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                             onPressed: () {},
                                             child: Text('Reviews'),
                                           ),
-                                          Card(
-                                            color: AppColors.themeColor,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                              BorderRadius.circular(4),
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(2),
-                                              child: Icon(
-                                                Icons.favorite_outline,
-                                                size: 15,
-                                                color: Colors.white,
-                                              ),
-                                            ),
+                                          GetBuilder<WishlistController>(
+                                            builder: (wishlistController) {
+                                              final isInWishlist = wishlistController
+                                                  .isInWishlist(product.id);
+                                              return GestureDetector(
+                                                onTap: () => _toggleWishlist(product.id),
+                                                child: Card(
+                                                  color: isInWishlist
+                                                      ? Colors.red
+                                                      : AppColors.themeColor,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(
+                                                      4,
+                                                    ),
+                                                  ),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.all(2),
+                                                    child: Icon(
+                                                      isInWishlist
+                                                          ? Icons.favorite
+                                                          : Icons.favorite_outline,
+                                                      size: 18,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
                                           ),
+
                                         ],
                                       ),
                                     ],
